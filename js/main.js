@@ -11,27 +11,49 @@ let controleManualMusica = false;
 const cooldownsChamados = new Map();
 const chamadosIniciando = new Set();
 
-[
-  [4, 12], [26, 7], [49, 16], [72, 10], [94, 20],
-  [14, 38], [38, 31], [60, 42], [84, 35],
-  [5, 61], [28, 55], [51, 67], [75, 58], [96, 70],
-  [14, 88], [40, 82], [64, 91], [88, 85],
-  [18, 24], [35, 18], [57, 27], [78, 23], [91, 43],
-  [8, 49], [21, 76], [45, 50], [67, 78], [89, 61],
-  [32, 94], [56, 95], [80, 94], [2, 29], [98, 9],
-  [43, 4], [70, 4], [3, 82]
-].forEach(([x, y], index) => {
+const bolasDoFundo = Array.from({ length: 72 }, () => {
   const bola = document.createElement("img");
   bola.className = "backdrop-ball";
   bola.src = "images/pokeball.svg";
   bola.alt = "";
   bola.draggable = false;
-  bola.style.left = `${x}%`;
-  bola.style.top = `${y}%`;
-  bola.style.setProperty("--fall-duration", `${78 + (index % 7) * 14}s`);
-  bola.style.setProperty("--fall-delay", `-${(index * 11) % 84}s`);
+  bola.style.setProperty("--fall-duration", `${(120 / 1.35).toFixed(2)}s`);
+  bola.style.setProperty("--fall-delay", "0s");
   backdrop.appendChild(bola);
+  return bola;
 });
+
+function posicionarPokebolasDoFundo() {
+  const largura = backdrop.clientWidth;
+  const altura = backdrop.clientHeight;
+  const tamanho = Math.min(36, Math.max(24, largura * 0.03));
+  const espacamento = tamanho * 1.6;
+  const colunasDisponiveis = Math.max(1, Math.floor(largura / espacamento));
+  const linhasDisponiveis = Math.max(1, Math.floor(altura / espacamento));
+  const quantidade = Math.min(bolasDoFundo.length, colunasDisponiveis * linhasDisponiveis);
+  const colunasNecessarias = Math.ceil(quantidade / linhasDisponiveis);
+  const colunasProporcionais = Math.ceil(Math.sqrt(quantidade * largura / altura));
+  const colunas = Math.min(
+    colunasDisponiveis,
+    Math.max(colunasNecessarias, colunasProporcionais)
+  );
+  const linhas = Math.ceil(quantidade / colunas);
+  const larguraCelula = largura / colunas;
+  const alturaCelula = altura / linhas;
+
+  bolasDoFundo.forEach((bola, index) => {
+    bola.hidden = index >= quantidade;
+    if (bola.hidden) return;
+
+    const coluna = index % colunas;
+    const linha = Math.floor(index / colunas);
+    bola.style.left = `${(coluna + 0.5) * larguraCelula - tamanho / 2}px`;
+    bola.style.top = `${(linha + 0.5) * alturaCelula - tamanho / 2}px`;
+  });
+}
+
+posicionarPokebolasDoFundo();
+window.addEventListener("resize", posicionarPokebolasDoFundo);
 
 const pad = (n) => "#" + String(n).padStart(3, "0");
 const byId = (id) => MATERIAS.find((m) => m.id === id);

@@ -14,22 +14,25 @@ html::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
-#boot{position:fixed;inset:0;overflow:hidden;background:var(--red);display:grid;place-content:center;justify-items:center;gap:1.15rem;z-index:99;opacity:1;visibility:visible;transition:opacity .45s ease .58s,visibility 0s linear 1.03s}
-.boot-pokeball{position:relative;width:180px;height:180px;filter:drop-shadow(0 14px 12px #0005)}
-.boot-half{position:absolute;inset:0;overflow:hidden;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
-.boot-half img{position:absolute;width:180px;height:180px;object-fit:contain;animation:boot-pulse 1.15s ease-in-out infinite}
+#boot{position:fixed;inset:0;overflow:hidden;background:transparent;display:grid;place-content:center;justify-items:center;gap:1.15rem;z-index:99;opacity:1;visibility:visible;transition:opacity .3s ease 1.65s,visibility 0s linear 1.95s}
+.boot-panel{position:absolute;z-index:0;left:0;right:0;height:50%;background:var(--red);transition:transform 1.65s cubic-bezier(.65,0,.35,1)}
+.boot-panel-top{top:0}
+.boot-panel-bottom{bottom:0}
+.boot-pokeball{position:relative;z-index:1;width:180px;height:180px;filter:drop-shadow(0 14px 12px #0005)}
+.boot-half{position:absolute;inset:0;overflow:hidden;transition:transform 1.65s cubic-bezier(.65,0,.35,1)}
+.boot-half img{position:absolute;width:180px;height:180px;object-fit:contain;animation:boot-pulse 2.4s ease-in-out infinite}
 .boot-half-top{clip-path:inset(0 0 50% 0)}
 .boot-half-bottom{clip-path:inset(50% 0 0 0)}
 .boot-half img{left:0}
-#boot p{position:relative;font-family:'Press Start 2P';font-size:.7rem;line-height:1.8;text-align:center;text-shadow:2px 2px 0 #0006}
+#boot p{position:relative;z-index:1;font-family:'Press Start 2P';font-size:.7rem;line-height:1.8;text-align:center;text-shadow:2px 2px 0 #0006}
 #boot.off{opacity:0;visibility:hidden;pointer-events:none}
-#boot.off .boot-half-top{transform:translateY(-90vh)}
-#boot.off .boot-half-bottom{transform:translateY(90vh)}
+#boot.off .boot-panel-top,#boot.off .boot-half-top{transform:translateY(-100vh)}
+#boot.off .boot-panel-bottom,#boot.off .boot-half-bottom{transform:translateY(100vh)}
 #boot.off p{opacity:0;transform:translateY(12px);transition:.25s ease}
-@keyframes boot-pulse{50%{transform:scale(.94) rotate(2deg)}}
+@keyframes boot-pulse{50%{transform:scale(.97)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.shell{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:1rem;border:4px solid var(--ink);border-radius:18px}
+.shell{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:1rem}
 .top{display:flex;align-items:center;gap:.6rem;background:var(--red);border:4px solid var(--ink);border-radius:18px 18px 0 0;padding:.8rem 1rem}
 .lens{appearance:none;flex:0 0 auto;width:46px;height:46px;padding:0;border-radius:50%;border:4px solid #fff;background:radial-gradient(circle at 35% 30%,#bdf,#2a7de1 60%);box-shadow:0 0 10px 2px #4af8,0 0 22px 4px #4af4;animation:lens-glow 3s ease-in-out infinite;transition:transform .2s ease,box-shadow .25s ease}
 .lens:active{transform:scale(.94)}
