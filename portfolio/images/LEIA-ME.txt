@@ -1,2 +1,0 @@
-Coloque aqui suas imagens (foto de perfil: perfil.jpg, banners etc.).
-Para usar a foto, troque o src do <img id="avatar"> no index.html.
