@@ -38,6 +38,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 .led{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink)}
 .led.r{background:#ff4d4d}.led.y{background:var(--accent)}.led.g{background:#3ddc84}
 .top h1{font-family:'Press Start 2P';font-size:clamp(.8rem,2.6vw,1.2rem);margin-left:auto;text-align:right;line-height:1.5;text-shadow:2px 2px 0 #0008}
+.top h1 small{display:block;font-size:.55em;opacity:.85}
 .music-controls{display:flex;align-items:center;gap:.5rem;flex:0 0 auto;margin-left:.35rem}
 .music-toggle{display:grid;place-items:center;flex:0 0 auto;width:44px;height:44px;border:2px solid #fff;border-radius:9px;background:#a4161a;box-shadow:0 0 0 2px var(--ink);transition:background .2s,transform .15s}
 .music-toggle img{display:block;width:26px;height:26px;object-fit:contain;image-rendering:pixelated;filter:brightness(0) invert(1)}
