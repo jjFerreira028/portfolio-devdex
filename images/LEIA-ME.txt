@@ -1,0 +1,6 @@
+Imagens do projeto:
+- perfil.jpg: foto de perfil, quando fornecida; o arquivo e a atualizacao do avatar permanecem pendentes.
+- pokeball.svg: icone e tela de abertura.
+- criaturas/: sprites PNG das dez disciplinas, com os nomes descritos no README.md.
+
+Os sprites devem ser preparados em PNG transparente de 64 x 64 pixels para exibicao pixelada. A interface mantem a sigla da disciplina como alternativa se uma imagem estiver ausente.

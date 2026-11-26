@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#d62839">
+<title>João Victor Mendes Ferreira | DevDex</title>
+<meta name="description" content="Portfólio de João Victor Mendes Ferreira, estudante de Análise e Desenvolvimento de Sistemas.">
+<link rel="icon" href="images/pokeball.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="boot" aria-hidden="true"><img src="images/pokeball.svg" alt=""><p>Carregando DevDex...</p></div>
+<audio id="background-music" src="audio/trilha-fundo.mp3" loop preload="auto"></audio>
+
+<main class="shell">
+  <header class="top" id="inicio">
+    <span class="lens" aria-hidden="true"></span>
+    <span class="led r"></span><span class="led y"></span><span class="led g"></span>
+    <div class="music-controls" role="group" aria-label="Controles da música de fundo">
+      <button class="music-toggle" id="music-toggle" type="button" aria-label="Ativar música de fundo" aria-pressed="false" title="Ativar música de fundo">
+        <img id="music-icon" src="images/sem-som.png" alt="">
+      </button>
+      <label class="volume-control" for="music-volume">
+        <span>Volume</span>
+        <input id="music-volume" type="range" min="0" max="1" step="0.01" value="0.2" aria-label="Volume da música" aria-valuetext="20%">
+      </label>
+    </div>
+    <h1>DevDex <small>João Victor Mendes Ferreira</small></h1>
+  </header>
+
+  <nav class="menu" aria-label="Seções do site">
+    <a href="#inicio" class="on">Início</a>
+    <a href="#sobre">Treinador</a>
+    <a href="#dex">Disciplinas</a>
+    <a href="#ferramentas">Habilidades</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <section class="trainer" aria-label="Apresentação">
+    <img id="avatar" src="images/pokeball.svg" alt="Ícone de Pokébola">
+    <div>
+      <h2>João Victor Mendes Ferreira</h2>
+      <p>Bem-vindo à minha Pokédex! Sou estudante de Análise e Desenvolvimento de Sistemas na UDF Centro Universitário. Cada disciplina da minha jornada ganha um Pokémon com atributos próprios, representando os conhecimentos que desenvolvo em programação, design, inteligência artificial, dados e tecnologia. Explore os registros e acompanhe minha evolução como desenvolvedor.</p>
+    </div>
+  </section>
+
+  <section class="bloco" id="sobre">
+    <h2>Ficha do treinador</h2>
+    <p>No curso de Análise e Desenvolvimento de Sistemas da UDF Centro Universitário, cada semestre é uma nova rota de treinamento. Esta ficha reúne as disciplinas da minha jornada e as habilidades que venho desenvolvendo em programação, desenvolvimento web, design, inteligência artificial e dados.</p>
+    <dl class="ficha">
+      <div><dt>Curso</dt><dd>Análise e Desenvolvimento de Sistemas</dd></div>
+      <div><dt>Instituição</dt><dd>UDF Centro Universitário</dd></div>
+      <div><dt>Progresso</dt><dd>2º semestre de 2026</dd></div>
+      <div><dt>Disciplinas registradas</dt><dd id="total">10</dd></div>
+    </dl>
+  </section>
+
+  <section class="dex" id="dex" aria-label="DevDex">
+    <article class="screen" id="detail" aria-live="polite"></article>
+    <aside class="list-wrap">
+      <nav class="tabs" aria-label="Filtrar por semestre">
+        <button class="tab on" data-f="all">Todas</button>
+        <button class="tab" data-f="1">1º sem.</button>
+        <button class="tab" data-f="2">2º sem.</button>
+      </nav>
+      <ul id="list"></ul>
+    </aside>
+  </section>
+
+  <section class="bloco" id="ferramentas">
+    <h2>Habilidades</h2>
+    <p>Nível estimado por mim, em uma escala de 0 a 100. Muda conforme eu pratico.</p>
+    <ul class="skills" id="skills"></ul>
+  </section>
+
+  <section class="bloco" id="contato">
+    <h2>Contato</h2>
+    <ul class="contatos" id="contatos"></ul>
+  </section>
+
+  <footer>2026 João Victor Mendes Ferreira. Projeto final de Desenvolvimento Front-End para Web.</footer>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
