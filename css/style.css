@@ -8,9 +8,9 @@ html::-webkit-scrollbar-track{background:#101019;border-left:2px solid #292936}
 html::-webkit-scrollbar-thumb{min-height:48px;border:2px solid #101019;border-radius:999px;background:linear-gradient(180deg,var(--accent),#f59e0b);box-shadow:0 0 8px #ffd60a55}
 html::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 *{scrollbar-width:thin;scrollbar-color:#ffd60a #101019}
-body::before{content:"";position:fixed;inset:-180px;z-index:-1;pointer-events:none;background-image:url("../images/pokebola-fundo-menor.png");background-repeat:repeat;background-size:140px 140px;opacity:.16;animation:pokebola-fall 24s linear infinite,pokebola-spin 90s linear infinite}
-@keyframes pokebola-fall{to{background-position:140px 140px}}
-@keyframes pokebola-spin{from{transform:rotate(0deg) scale(1)}to{transform:rotate(360deg) scale(1)}}
+.backdrop{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.backdrop-ball{position:absolute;width:clamp(28px,4vw,44px);aspect-ratio:1;object-fit:contain;opacity:.1;transform-origin:center;animation:backdrop-ball-spin var(--spin-duration,48s) linear infinite;animation-delay:var(--spin-delay,0s);animation-direction:var(--spin-direction,normal)}
+@keyframes backdrop-ball-spin{to{transform:rotate(360deg)}}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
@@ -118,7 +118,7 @@ footer{text-align:center;opacity:.6;font-size:.5rem;padding:1.2rem 0}
   .trainer>div{width:100%}
   #list{max-height:340px}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}body::before{animation:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* ===== Ajustes finais: sem emojis, toque e mobile ===== */
 html{-webkit-text-size-adjust:100%}

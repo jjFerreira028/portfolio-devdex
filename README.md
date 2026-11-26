@@ -13,14 +13,14 @@ HTML5, CSS3 e JavaScript puro, sem frameworks. Design responsivo com foco em dis
 - `js/data.js`: dados das disciplinas
 - `js/main.js`: lógica de listagem, filtros, transições e controle da música
 - `audio/trilha-fundo.mp3`: música de fundo autorizada para o projeto
-- `images/pokeball.svg`: ícone e tela de abertura
+- `images/pokeball.svg`: ícone, tela de abertura e Pokébolas individuais do backdrop
 - `images/sem-som.png`, `images/som.png`: ícones do controle de áudio
 - `images/pokebola-fundo.png`: imagem original do fundo
-- `images/pokebola-fundo-menor.png`: textura animada aplicada, com os ícones 50% menores e mais espaçados
+- `images/pokebola-fundo-menor.png`: textura de fundo original, mantida como recurso do projeto
 - `images/perfil.jpg`: foto de perfil, quando fornecida
 - `images/criaturas/`: sprites PNG das disciplinas, referenciados no campo `criatura.arquivo` de `js/data.js`
 
-Cada registro em `MATERIAS` inclui criatura, arquivo, atributos, cor secundária e uma assinatura sonora original. No computador, passe o mouse sobre a criatura; no celular, toque nela para ouvir uma sequência curta sintetizada no navegador. A música de fundo usa `audio/trilha-fundo.mp3`; o controle no cabeçalho inicia em 20% e permite ativar, silenciar e ajustar o volume. Se a reprodução automática for bloqueada, use o ícone para iniciar a faixa. O fundo exibe Pokébolas em movimento diagonal e respeita a preferência por movimento reduzido. Os sprites processados devem ser PNGs transparentes de 64 x 64 pixels; a página os exibe com renderização pixelada e mantém a sigla como alternativa se o arquivo estiver ausente.
+Cada registro em `MATERIAS` inclui criatura, arquivo, atributos, cor secundária e uma assinatura sonora original. No computador, passe o mouse sobre a criatura; no celular, toque nela para ouvir uma sequência curta sintetizada no navegador. A música de fundo usa `audio/trilha-fundo.mp3`; o controle no cabeçalho inicia em 20% e permite ativar, silenciar e ajustar o volume. Se a reprodução automática for bloqueada, use o ícone para iniciar a faixa. As Pokébolas do backdrop giram individualmente em ritmo lento e respeitam a preferência por movimento reduzido. Os sprites processados devem ser PNGs transparentes de 64 x 64 pixels; a página os exibe com renderização pixelada e mantém a sigla como alternativa se o arquivo estiver ausente.
 
 ## Sprites das disciplinas
 Arquivos esperados em `images/criaturas/`:

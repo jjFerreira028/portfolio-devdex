@@ -2,6 +2,7 @@ const $ = (s) => document.querySelector(s);
 const list = $("#list"), detail = $("#detail");
 const musicaFundo = $("#background-music"), controleMusica = $("#music-toggle");
 const iconeMusica = $("#music-icon"), controleVolume = $("#music-volume");
+const backdrop = $("#backdrop");
 let filtro = "all", atual = 7;
 let audioContext;
 let fontesAtivas = [];
@@ -9,6 +10,25 @@ let ultimoVolume = Number(controleVolume.value);
 let controleManualMusica = false;
 const cooldownsChamados = new Map();
 const chamadosIniciando = new Set();
+
+[
+  [4, 12], [26, 7], [49, 16], [72, 10], [94, 20],
+  [14, 38], [38, 31], [60, 42], [84, 35],
+  [5, 61], [28, 55], [51, 67], [75, 58], [96, 70],
+  [14, 88], [40, 82], [64, 91], [88, 85]
+].forEach(([x, y], index) => {
+  const bola = document.createElement("img");
+  bola.className = "backdrop-ball";
+  bola.src = "images/pokeball.svg";
+  bola.alt = "";
+  bola.draggable = false;
+  bola.style.left = `${x}%`;
+  bola.style.top = `${y}%`;
+  bola.style.setProperty("--spin-duration", `${38 + (index % 5) * 7}s`);
+  bola.style.setProperty("--spin-delay", `-${(index * 3) % 45}s`);
+  bola.style.setProperty("--spin-direction", index % 2 ? "reverse" : "normal");
+  backdrop.appendChild(bola);
+});
 
 const pad = (n) => "#" + String(n).padStart(3, "0");
 const byId = (id) => MATERIAS.find((m) => m.id === id);
