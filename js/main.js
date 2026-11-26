@@ -214,7 +214,11 @@ document.addEventListener("keydown", (e) => {
 });
 
 selecionar(atual);
-window.addEventListener("load", () => setTimeout(() => $("#boot").classList.add("off"), 900));
+document.body.classList.add("booting");
+window.addEventListener("load", () => setTimeout(() => {
+  $("#boot").classList.add("off");
+  document.body.classList.remove("booting");
+}, 1050));
 
 // Gesto de deslizar no celular: esquerda = próxima, direita = anterior
 let tx = null, ty = null;
