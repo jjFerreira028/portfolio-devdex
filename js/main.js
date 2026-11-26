@@ -14,7 +14,7 @@ const chamadosIniciando = new Set();
 const bolasDoFundo = Array.from({ length: 72 }, () => {
   const bola = document.createElement("img");
   bola.className = "backdrop-ball";
-  bola.src = "images/pokeball.svg";
+  bola.src = "images/pokebola.png";
   bola.alt = "";
   bola.draggable = false;
   bola.style.setProperty("--fall-duration", `${(120 / 1.35).toFixed(2)}s`);
@@ -26,7 +26,7 @@ const bolasDoFundo = Array.from({ length: 72 }, () => {
 function posicionarPokebolasDoFundo() {
   const largura = backdrop.clientWidth;
   const altura = backdrop.clientHeight;
-  const tamanho = Math.min(36, Math.max(24, largura * 0.03));
+  const tamanho = Math.min(22, Math.max(14, largura * 0.018));
   const espacamento = tamanho * 1.6;
   const colunasDisponiveis = Math.max(1, Math.floor(largura / espacamento));
   const linhasDisponiveis = Math.max(1, Math.floor(altura / espacamento));
