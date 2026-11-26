@@ -1,7 +1,7 @@
 :root{--red:#d62839;--red2:#a4161a;--ink:#16161d;--screen:#0f1c2e;--glass:#9bd1c4;--w:#f4f4f4;--accent:#ffd60a}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;overflow-x:hidden;overflow-y:auto;scrollbar-gutter:stable}
-body{position:relative;isolation:isolate;overflow-x:hidden;overscroll-behavior-y:none;font-family:'Rajdhani',sans-serif;font-weight:500;font-size:1.1rem;background:#1b1b24;color:var(--w);min-height:100vh}
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
+body{position:relative;isolation:isolate;font-family:'Rajdhani',sans-serif;font-weight:500;font-size:1.1rem;background:#1b1b24;color:var(--w);min-height:100vh}
 body.booting{height:100vh;height:100dvh;overflow:hidden}
 html::-webkit-scrollbar{width:10px}
 html::-webkit-scrollbar-track{background:#101019;border-left:2px solid #292936}
@@ -33,7 +33,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 
 .shell{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:1rem}
 .top{display:flex;align-items:center;gap:.6rem;background:var(--red);border:4px solid var(--ink);border-radius:18px 18px 0 0;padding:.8rem 1rem}
-.lens{width:46px;height:46px;border-radius:50%;border:4px solid #fff;background:radial-gradient(circle at 35% 30%,#bdf,#2a7de1 60%);box-shadow:0 0 14px #4af;animation:pulse 2.4s ease-in-out infinite}
+.lens{appearance:none;flex:0 0 auto;width:46px;height:46px;padding:0;border-radius:50%;border:4px solid #fff;background:radial-gradient(circle at 35% 30%,#bdf,#2a7de1 60%);box-shadow:0 0 14px #4af;animation:pulse 2.4s ease-in-out infinite}
 .led{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink)}
 .led.r{background:#ff4d4d}.led.y{background:var(--accent)}.led.g{background:#3ddc84}
 .top h1{font-family:'Press Start 2P';font-size:clamp(.8rem,2.6vw,1.2rem);margin-left:auto;text-align:right;line-height:1.5;text-shadow:2px 2px 0 #0008}
@@ -150,7 +150,9 @@ body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-i
 @media(max-width:380px){.stat{grid-template-columns:72px 1fr 28px}}
 
 /* ===== Menu, seções e habilidades ===== */
-.menu{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.3rem;overflow:hidden;background:var(--ink);border:4px solid var(--ink);border-top:0;padding:.35rem}
+.menu{position:sticky;top:0;z-index:20;display:none;grid-template-columns:repeat(5,minmax(0,1fr));gap:.3rem;overflow:hidden;background:var(--ink);border:4px solid var(--ink);border-top:0;padding:.35rem}
+.menu.open{display:grid;animation:menu-enter .24s ease both}
+@keyframes menu-enter{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 .menu a{display:flex;align-items:center;justify-content:center;min-width:0;min-height:44px;padding:.35rem .55rem;border-radius:8px;color:var(--w);font-family:'Press Start 2P';font-size:.52rem;line-height:1.4;text-align:center;text-decoration:none;white-space:nowrap;transition:background .25s,color .25s,transform .2s}
 .menu a:hover{transform:translateY(-1px)}
 .menu a.on{background:var(--accent);color:#111}

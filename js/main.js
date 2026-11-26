@@ -254,6 +254,19 @@ $("#total").textContent = MATERIAS.length;
 // ===== Menu ativo e barras que enchem ao entrar na tela =====
 const links = [...document.querySelectorAll(".menu a")];
 const secoes = links.map((a) => document.querySelector(a.getAttribute("href")));
+const menu = $("#main-menu");
+const alternarMenu = $("#menu-toggle");
+alternarMenu.addEventListener("click", () => {
+  const aberto = menu.classList.toggle("open");
+  alternarMenu.setAttribute("aria-expanded", String(aberto));
+  alternarMenu.setAttribute("aria-label", aberto ? "Fechar menu de navegação" : "Abrir menu de navegação");
+});
+menu.addEventListener("click", (e) => {
+  if (!e.target.closest("a")) return;
+  menu.classList.remove("open");
+  alternarMenu.setAttribute("aria-expanded", "false");
+  alternarMenu.setAttribute("aria-label", "Abrir menu de navegação");
+});
 const ativa = new IntersectionObserver((es) => es.forEach((e) => {
   if (e.isIntersecting) links.forEach((a) => a.classList.toggle("on", a.hash === "#" + e.target.id));
 }), { rootMargin: "-45% 0px -50% 0px" });
