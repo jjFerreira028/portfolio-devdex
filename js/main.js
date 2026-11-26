@@ -15,7 +15,11 @@ const chamadosIniciando = new Set();
   [4, 12], [26, 7], [49, 16], [72, 10], [94, 20],
   [14, 38], [38, 31], [60, 42], [84, 35],
   [5, 61], [28, 55], [51, 67], [75, 58], [96, 70],
-  [14, 88], [40, 82], [64, 91], [88, 85]
+  [14, 88], [40, 82], [64, 91], [88, 85],
+  [18, 24], [35, 18], [57, 27], [78, 23], [91, 43],
+  [8, 49], [21, 76], [45, 50], [67, 78], [89, 61],
+  [32, 94], [56, 95], [80, 94], [2, 29], [98, 9],
+  [43, 4], [70, 4], [3, 82]
 ].forEach(([x, y], index) => {
   const bola = document.createElement("img");
   bola.className = "backdrop-ball";
@@ -24,9 +28,8 @@ const chamadosIniciando = new Set();
   bola.draggable = false;
   bola.style.left = `${x}%`;
   bola.style.top = `${y}%`;
-  bola.style.setProperty("--spin-duration", `${38 + (index % 5) * 7}s`);
-  bola.style.setProperty("--spin-delay", `-${(index * 3) % 45}s`);
-  bola.style.setProperty("--spin-direction", index % 2 ? "reverse" : "normal");
+  bola.style.setProperty("--fall-duration", `${78 + (index % 7) * 14}s`);
+  bola.style.setProperty("--fall-delay", `-${(index * 11) % 84}s`);
   backdrop.appendChild(bola);
 });
 
