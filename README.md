@@ -28,4 +28,5 @@ Arquivos esperados em `images/criaturas/`:
 
 ## Publicação
 Hospedado com GitHub Pages (branch `main`, pasta raiz).
+
  https://jjferreira028.github.io/portfolio-devdex/
