@@ -10,7 +10,7 @@ html::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 *{scrollbar-width:thin;scrollbar-color:#ffd60a #101019}
 .backdrop{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
 .backdrop-ball{position:absolute;width:clamp(14px,1.8vw,22px);aspect-ratio:1;object-fit:contain;filter:brightness(0) invert(1);opacity:.16;transform-origin:center;animation:backdrop-ball-fall var(--fall-duration,100s) linear infinite;animation-delay:var(--fall-delay,0s)}
-@keyframes backdrop-ball-fall{to{transform:translate3d(40vh,40vh,0) rotate(360deg)}}
+@keyframes backdrop-ball-fall{to{transform:translate3d(var(--fall-distance,40vh),var(--fall-distance,40vh),0) rotate(360deg)}}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 
@@ -164,6 +164,8 @@ section[id],.screen{scroll-margin-top:64px}
 .bloco{background:var(--red2);border:4px solid var(--ink);border-top:0;padding:1.2rem}
 .bloco h2{font-family:'Press Start 2P';font-size:clamp(.8rem,2.4vw,1rem);line-height:1.6;margin-bottom:.8rem;text-shadow:2px 2px 0 #0008}
 .bloco>p{max-width:62ch}
+#sobre h2{text-align:right}
+#sobre>p{margin-left:auto;text-align:right}
 .ficha{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.6rem;margin-top:1rem}
 .ficha div{min-height:76px;background:var(--screen);border:2px solid #38516f;border-left:5px solid var(--accent);border-radius:8px;padding:.7rem .8rem;box-shadow:inset 0 0 0 2px #0005,0 3px 0 #0005}
 .ficha dt{font-family:'Press Start 2P';font-size:.42rem;line-height:1.8;color:var(--accent);text-transform:uppercase}

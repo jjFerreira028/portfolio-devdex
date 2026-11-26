@@ -11,49 +11,45 @@ let controleManualMusica = false;
 const cooldownsChamados = new Map();
 const chamadosIniciando = new Set();
 
-const bolasDoFundo = Array.from({ length: 72 }, () => {
-  const bola = document.createElement("img");
-  bola.className = "backdrop-ball";
-  bola.src = "images/pokebola.png";
-  bola.alt = "";
-  bola.draggable = false;
-  bola.style.setProperty("--fall-duration", `${(120 / 1.35).toFixed(2)}s`);
-  bola.style.setProperty("--fall-delay", "0s");
-  backdrop.appendChild(bola);
-  return bola;
-});
-
 function posicionarPokebolasDoFundo() {
-  const largura = backdrop.clientWidth;
-  const altura = backdrop.clientHeight;
+  const largura = Math.max(1, backdrop.clientWidth);
+  const altura = Math.max(1, backdrop.clientHeight);
   const tamanho = Math.min(22, Math.max(14, largura * 0.018));
-  const espacamento = tamanho * 1.6;
-  const colunasDisponiveis = Math.max(1, Math.floor(largura / espacamento));
-  const linhasDisponiveis = Math.max(1, Math.floor(altura / espacamento));
-  const quantidade = Math.min(bolasDoFundo.length, colunasDisponiveis * linhasDisponiveis);
-  const colunasNecessarias = Math.ceil(quantidade / linhasDisponiveis);
-  const colunasProporcionais = Math.ceil(Math.sqrt(quantidade * largura / altura));
-  const colunas = Math.min(
-    colunasDisponiveis,
-    Math.max(colunasNecessarias, colunasProporcionais)
-  );
-  const linhas = Math.ceil(quantidade / colunas);
-  const larguraCelula = largura / colunas;
-  const alturaCelula = altura / linhas;
+  const espacamento = Math.max(tamanho * 1.6, Math.sqrt(largura * altura / 64));
+  const colunas = Math.ceil(largura / espacamento);
+  const linhas = Math.ceil(altura / espacamento);
+  const passos = Math.max(1, Math.round(altura * 0.4 / espacamento));
+  const margem = passos + 1;
+  const colunasTotais = colunas + margem * 2;
+  const linhasTotais = linhas + margem * 2;
+  const distancia = passos * espacamento;
+  const duracao = (120 / 1.35) * (distancia / (altura * 0.4));
+  const grade = document.createDocumentFragment();
 
-  bolasDoFundo.forEach((bola, index) => {
-    bola.hidden = index >= quantidade;
-    if (bola.hidden) return;
+  for (let linha = -margem; linha < linhas + margem; linha++) {
+    for (let coluna = -margem; coluna < colunas + margem; coluna++) {
+      const bola = document.createElement("img");
+      bola.className = "backdrop-ball";
+      bola.src = "images/pokebola.png";
+      bola.alt = "";
+      bola.draggable = false;
+      bola.style.left = `${coluna * espacamento + (espacamento - tamanho) / 2}px`;
+      bola.style.top = `${linha * espacamento + (espacamento - tamanho) / 2}px`;
+      bola.style.setProperty("--fall-distance", `${distancia}px`);
+      bola.style.setProperty("--fall-duration", `${duracao}s`);
+      grade.appendChild(bola);
+    }
+  }
 
-    const coluna = index % colunas;
-    const linha = Math.floor(index / colunas);
-    bola.style.left = `${(coluna + 0.5) * larguraCelula - tamanho / 2}px`;
-    bola.style.top = `${(linha + 0.5) * alturaCelula - tamanho / 2}px`;
-  });
+  backdrop.replaceChildren(grade);
 }
 
 posicionarPokebolasDoFundo();
-window.addEventListener("resize", posicionarPokebolasDoFundo);
+let temporizadorRedimensionamento;
+window.addEventListener("resize", () => {
+  clearTimeout(temporizadorRedimensionamento);
+  temporizadorRedimensionamento = setTimeout(posicionarPokebolasDoFundo, 150);
+});
 
 const pad = (n) => "#" + String(n).padStart(3, "0");
 const byId = (id) => MATERIAS.find((m) => m.id === id);

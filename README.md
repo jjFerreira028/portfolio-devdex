@@ -12,7 +12,7 @@ Portfólio de João Victor Mendes Ferreira, estudante de Análise e Desenvolvime
 ## Recursos implementados
 
 - **Abertura cinematográfica:** a tela vermelha se divide horizontalmente; a metade superior e a metade inferior da Pokébola se afastam junto com seus respectivos painéis. O centro da Pokébola fica alinhado ao corte dos painéis. A abertura dura 1,65 s, e os movimentos respeitam `prefers-reduced-motion`.
-- **Pokébolas no fundo:** até 72 ícones pequenos usam o PNG transparente `images/pokebola.png`. O traço preto original é invertido por CSS para contrastar com o fundo escuro. As Pokébolas são distribuídas em uma grade responsiva com espaçamento para evitar sobreposição; a quantidade e as posições se ajustam ao tamanho da tela. Elas giram enquanto caem na diagonal de 45°, em movimento sincronizado de 88,89 s — 35% mais rápido que a duração média anterior — e respeitam `prefers-reduced-motion`.
+- **Pokébolas no fundo:** ícones pequenos usam o PNG transparente `images/pokebola.png`; o traço preto original é invertido por CSS para contrastar com o fundo escuro. Uma grade responsiva com células extras fora da tela mantém o espaçamento e faz o movimento diagonal de 45° girar continuamente, sem lacunas ou sobreposição quando o ciclo reinicia. A quantidade e o posicionamento se ajustam ao tamanho da tela, o movimento mantém a aceleração de 35% sobre a média anterior e respeita `prefers-reduced-motion`.
 - **Navegação responsiva:** menu que abre pelo botão do cabeçalho, centraliza os links disponíveis, acompanha a seção visível e se adapta quando uma seção não tem conteúdo.
 - **Disciplinas:** lista de matérias com filtros por semestre. Selecionar uma matéria atualiza sua ficha com criatura, docente, descrição, atributos e notas de lógica, código, criatividade e dados.
 - **Sprites e notas:** sprites pixelados; se um arquivo de criatura estiver ausente, a sigla da matéria aparece no lugar. As barras de atributos são animadas quando entram na tela.
@@ -20,7 +20,7 @@ Portfólio de João Victor Mendes Ferreira, estudante de Análise e Desenvolvime
 - **Música de fundo:** controles para iniciar, silenciar e ajustar o volume, iniciado em 20%. O cabeçalho informa o nome da faixa e se está tocando. Se o navegador bloquear a reprodução automática, é possível iniciá-la pelo controle.
 - **Habilidades e contato:** listas geradas a partir dos dados do projeto. Campos de contato vazios ficam ocultos, incluindo a seção e seu link no menu.
 - **Acessibilidade e interação:** navegação por teclado, gesto horizontal para trocar de disciplina no celular, rótulos acessíveis e suporte à preferência por movimento reduzido.
-- **Acabamento visual:** as divisórias internas permanecem; a moldura externa do contêiner principal foi removida. O nome fica no cabeçalho, sem repetição como título da apresentação ou na meta descrição.
+- **Acabamento visual:** as divisórias internas permanecem; a moldura externa do contêiner principal foi removida. O título e o parágrafo da ficha do treinador ficam alinhados à direita. O nome fica no cabeçalho, sem repetição como título da apresentação ou na meta descrição.
 
 ## Estrutura do projeto
 
