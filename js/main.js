@@ -1,7 +1,7 @@
 const $ = (s) => document.querySelector(s);
 const list = $("#list"), detail = $("#detail");
 const musicaFundo = $("#background-music"), controleMusica = $("#music-toggle");
-const iconeMusica = $("#music-icon"), controleVolume = $("#music-volume");
+const iconeMusica = $("#music-icon"), controleVolume = $("#music-volume"), indicadorMusica = $("#now-playing");
 const backdrop = $("#backdrop");
 let filtro = "all", atual = 7;
 let audioContext;
@@ -43,6 +43,7 @@ function atualizarControleMusica() {
   controleMusica.title = ativa ? "Mutar música de fundo" : "Ativar música de fundo";
   controleMusica.setAttribute("aria-label", controleMusica.title);
   controleMusica.setAttribute("aria-pressed", String(ativa));
+  indicadorMusica.textContent = `${ativa ? "Tocando" : "Faixa"}: Pokémon Theme (instrumental)`;
 }
 
 function atualizarVolume() {
