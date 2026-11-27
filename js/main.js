@@ -5,6 +5,7 @@ const iconeMusica = $("#music-icon"), controleVolume = $("#music-volume"), indic
 const backdrop = $("#backdrop");
 let filtro = "all", atual = 7;
 let audioContext;
+const AudioContextClass = window.AudioContext || window.webkitAudioContext;
 let fontesAtivas = [];
 let ultimoVolume = Number(controleVolume.value);
 let controleManualMusica = false;
@@ -179,11 +180,11 @@ async function tocarChamado(criatura, id) {
   const agora = Date.now();
   if ((cooldownsChamados.get(id) || 0) > agora || chamadosIniciando.has(id)) return;
   const status = detail.querySelector(".audio-status");
-  if (!window.AudioContext) {
+  if (!AudioContextClass) {
     status.textContent = "Áudio não disponível neste navegador.";
     return;
   }
-  if (!audioContext) audioContext = new AudioContext();
+  if (!audioContext) audioContext = new AudioContextClass();
   chamadosIniciando.add(id);
   try {
     if (audioContext.state !== "running") await audioContext.resume();
@@ -238,7 +239,8 @@ function passo(d) {
 }
 
 function focarDisciplina(id) {
-  list.querySelector(`[data-id="${id}"]`)?.focus();
+  const item = list.querySelector(`[data-id="${id}"]`);
+  if (item) item.focus();
 }
 
 list.addEventListener("click", (e) => {
@@ -298,7 +300,7 @@ detail.addEventListener("touchend", (e) => {
   const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
   tx = ty = null;
   if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) passo(dx < 0 ? 1 : -1);
-});
+}, { passive: true });
 
 // ===== Habilidades =====
 $("#skills").innerHTML = HABILIDADES.map((h) =>
@@ -318,7 +320,7 @@ if (contatos.length) {
     const externo = !url.startsWith("mailto:");
     const alvo = externo ? ' target="_blank" rel="noopener noreferrer"' : "";
     const treinador = tipo === "email"
-      ? `<div class="contato-treinador"><img src="images/treinador-joao.png" alt="João Victor como treinador"><span>Treinador</span></div>`
+      ? `<div class="contato-treinador"><img src="images/treinador-joao.png" alt="João Victor como treinador"><span>Treinador Ferreira</span></div>`
       : "";
     return `<li class="contato-item contato-item--${tipo}">${treinador}<a class="contato-card contato-card--${tipo}" href="${url}"${alvo}>
       <span class="contato-pokebola" aria-hidden="true"></span>
@@ -345,7 +347,9 @@ menu.addEventListener("click", (e) => {
   menu.classList.remove("open");
   alternarMenu.setAttribute("aria-expanded", "false");
   alternarMenu.setAttribute("aria-label", "Abrir menu de navegação");
-  document.querySelector(link.hash)?.focus({ preventScroll: true });
+  marcarLinkAtivo(link.hash.slice(1));
+  const secao = document.querySelector(link.hash);
+  if (secao) secao.focus();
 });
 document.addEventListener("keydown", (e) => {
   if (e.key !== "Escape" || !menu.classList.contains("open")) return;
@@ -354,28 +358,54 @@ document.addEventListener("keydown", (e) => {
   alternarMenu.setAttribute("aria-label", "Abrir menu de navegação");
   alternarMenu.focus();
 });
-const ativa = new IntersectionObserver((es) => es.forEach((e) => {
-  if (e.isIntersecting) links.forEach((a) => {
-    const ativo = a.hash === "#" + e.target.id;
+function marcarLinkAtivo(id) {
+  links.forEach((a) => {
+    const ativo = a.hash === "#" + id;
     a.classList.toggle("on", ativo);
     if (ativo) a.setAttribute("aria-current", "location");
     else a.removeAttribute("aria-current");
   });
-}), { rootMargin: "-45% 0px -50% 0px" });
-secoes.forEach((s) => s && ativa.observe(s));
-const barras = new IntersectionObserver((es) => es.forEach((e) => {
-  if (e.isIntersecting) { e.target.querySelectorAll(".bar i").forEach((i) => (i.style.width = i.dataset.w + "%")); barras.unobserve(e.target); }
-}), { threshold: 0.3 });
-barras.observe($("#skills"));
+}
+
+if (typeof window.IntersectionObserver === "function") {
+  const ativa = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) marcarLinkAtivo(e.target.id);
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  secoes.forEach((s) => s && ativa.observe(s));
+
+  const barras = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll(".bar i").forEach((i) => (i.style.width = i.dataset.w + "%"));
+      barras.unobserve(e.target);
+    }
+  }), { threshold: 0.3 });
+  barras.observe($("#skills"));
+} else {
+  window.addEventListener("scroll", () => {
+    let secaoVisivel;
+    secoes.forEach((s) => {
+      if (s && s.getBoundingClientRect().top <= window.innerHeight * 0.45) secaoVisivel = s;
+    });
+    if (secaoVisivel) marcarLinkAtivo(secaoVisivel.id);
+  }, { passive: true });
+  $("#skills").querySelectorAll(".bar i").forEach((i) => (i.style.width = i.dataset.w + "%"));
+}
 
 const revelaveis = [...document.querySelectorAll(".trainer, .dex, .bloco")];
-const entrada = new IntersectionObserver((es) => es.forEach((e) => {
-  if (e.isIntersecting) {
-    e.target.classList.add("visible");
-    entrada.unobserve(e.target);
-  }
-}), { threshold: 0.12 });
-revelaveis.forEach((s) => {
-  s.classList.add("reveal");
-  entrada.observe(s);
-});
+if (typeof window.IntersectionObserver === "function") {
+  const entrada = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) {
+      e.target.classList.add("visible");
+      entrada.unobserve(e.target);
+    }
+  }), { threshold: 0.12 });
+  revelaveis.forEach((s) => {
+    s.classList.add("reveal");
+    entrada.observe(s);
+  });
+} else {
+  revelaveis.forEach((s) => {
+    s.classList.add("reveal");
+    s.classList.add("visible");
+  });
+}
