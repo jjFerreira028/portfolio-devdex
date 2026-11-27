@@ -9,8 +9,8 @@ html::-webkit-scrollbar-thumb{min-height:48px;border:2px solid #101019;border-ra
 html::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 *{scrollbar-width:thin;scrollbar-color:#ffd60a #101019}
 .backdrop{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-.backdrop-ball{position:absolute;width:clamp(14px,1.8vw,22px);aspect-ratio:1;object-fit:contain;filter:brightness(0) invert(1);opacity:.16;transform-origin:center;animation:backdrop-ball-fall var(--fall-duration,100s) linear infinite;animation-delay:var(--fall-delay,0s)}
-@keyframes backdrop-ball-fall{to{transform:translate3d(var(--fall-distance,40vh),var(--fall-distance,40vh),0) rotate(360deg)}}
+.backdrop-ball{position:absolute;width:clamp(14px,1.8vw,22px);aspect-ratio:1;object-fit:contain;filter:brightness(0) invert(1);opacity:.19;transform-origin:center;animation:backdrop-ball-fall var(--fall-duration,100s) linear infinite;animation-delay:var(--fall-delay,0s)}
+@keyframes backdrop-ball-fall{to{transform:translate3d(var(--fall-distance,40vh),var(--fall-distance,40vh),0) rotate(1440deg)}}
 button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .skip-link{position:fixed;top:.75rem;left:.75rem;z-index:100;transform:translateY(calc(-100% - 1rem));padding:.65rem .8rem;border:3px solid var(--ink);border-radius:8px;background:var(--accent);color:#111;transition:transform .2s}
@@ -177,12 +177,24 @@ section[id],.screen{scroll-margin-top:64px}
 .dex{border-bottom-color:var(--ink)}
 #ferramentas{border-bottom-color:var(--ink)}
 .skills,.contatos{list-style:none;padding:0;margin-top:1rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem}
+.contatos-vazio{margin-top:1rem;padding:1rem;border:2px dashed #ffffff55;border-radius:10px;background:#0003;text-align:center;opacity:.8}
+.contatos-vazio[hidden]{display:none}
+#contato h2{text-align:right}
+#contato .contatos-descricao{max-width:62ch;margin:.5rem 0 0 auto;text-align:right}
 .skill{background:#0004;border-radius:10px;padding:.8rem}
 .skill>div:first-child{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
 .skill em{font-style:normal;font-size:.5rem;opacity:.8}
 .skill .stat{grid-template-columns:1fr auto;margin-top:.5rem}
 .skill .bar i{background:var(--accent)}
-.contatos a{display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:10px;background:#0004;border:2px solid var(--accent);color:var(--w);font-weight:700;text-decoration:none;transition:background .2s,color .2s}
-.contatos a:hover{background:var(--accent);color:#111}
+.contatos a{display:flex;align-items:center;justify-content:flex-start;gap:.8rem;min-height:76px;padding:.65rem .8rem;border-radius:10px;background:#0004;border:2px solid var(--social-color);color:var(--w);font-weight:700;text-decoration:none;transition:background .2s,color .2s,transform .2s}
+.contatos a:hover{background:var(--social-color);color:#111;transform:translateY(-2px)}
+.contato-card--email{--social-color:#ea4335;--pokeball-background:linear-gradient(to bottom,#ea4335 0 43%,var(--ink) 43% 57%,#fff 57%)}
+.contato-card--github{--social-color:#f0f6fc;--pokeball-background:linear-gradient(to bottom,#24292f 0 43%,var(--ink) 43% 57%,#f0f6fc 57%)}
+.contato-card--instagram{--social-color:#d62976;--pokeball-background:linear-gradient(to bottom,#feda75 0%,#fa7e1e 22%,#d62976 43%,var(--ink) 43% 57%,#fff 57%)}
+.contato-pokebola{display:block;flex:0 0 48px;width:48px;aspect-ratio:1;border:3px solid var(--ink);border-radius:50%;background:radial-gradient(circle at 50% 50%,#fff 0 12%,var(--ink) 13% 24%,transparent 25%),var(--pokeball-background);box-shadow:0 2px 0 #0007;transition:transform .35s}
+.contatos a:hover .contato-pokebola{transform:rotate(22deg)}
+.contato-info{display:grid;gap:.3rem}
+.contato-info strong{font-size:.52rem}
+.contato-info span{font-size:.36rem;opacity:.75}
 @media(max-width:800px){.bloco{padding:1rem}.menu a{font-size:.46rem;padding:.35rem}}
 @media(max-width:420px){.menu a{font-size:.44rem}}

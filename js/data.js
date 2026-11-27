@@ -43,7 +43,13 @@ const MATERIAS = [
 ];
 
 // Preencha o que quiser exibir. Campos vazios ficam ocultos no site.
-const PERFIL = { email: "", linkedin: "", github: "", whatsapp: "" };
+const PERFIL = {
+  email: "joaomfdf@hotmail.com",
+  linkedin: "",
+  github: "https://github.com/jjFerreira028",
+  instagram: "https://www.instagram.com/_jvmferreira/",
+  whatsapp: ""
+};
 
 // Nível (0-100) é autoavaliação: ajuste para refletir a realidade.
 const HABILIDADES = [

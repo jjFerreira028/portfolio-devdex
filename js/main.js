@@ -15,7 +15,7 @@ function posicionarPokebolasDoFundo() {
   const largura = Math.max(1, backdrop.clientWidth);
   const altura = Math.max(1, backdrop.clientHeight);
   const tamanho = Math.min(22, Math.max(14, largura * 0.018));
-  const espacamento = Math.max(tamanho * 1.6, Math.sqrt(largura * altura / 64));
+  const espacamento = Math.max(tamanho * 1.45, Math.sqrt(largura * altura / 120));
   const colunas = Math.ceil(largura / espacamento);
   const linhas = Math.ceil(altura / espacamento);
   const passos = Math.max(1, Math.round(altura * 0.4 / espacamento));
@@ -307,17 +307,22 @@ $("#skills").innerHTML = HABILIDADES.map((h) =>
 
 // ===== Contato (campos vazios são ocultados) =====
 const contatos = [
-  ["E-mail", PERFIL.email && "mailto:" + PERFIL.email],
-  ["LinkedIn", PERFIL.linkedin],
-  ["GitHub", PERFIL.github],
-  ["WhatsApp", PERFIL.whatsapp && "https://wa.me/" + PERFIL.whatsapp.replace(/\D/g, "")]
-].filter((c) => c[1]);
+  ["E-mail", PERFIL.email && "mailto:" + PERFIL.email, "email", "Enviar uma mensagem"],
+  ["GitHub", PERFIL.github, "github", "Ver repositórios"],
+  ["Instagram", PERFIL.instagram, "instagram", "Visitar perfil"],
+  ["LinkedIn", PERFIL.linkedin, "linkedin", "Visitar perfil"],
+  ["WhatsApp", PERFIL.whatsapp && "https://wa.me/" + PERFIL.whatsapp.replace(/\D/g, ""), "whatsapp", "Enviar uma mensagem"]
+].filter(([, url]) => url);
 if (contatos.length) {
-  $("#contatos").innerHTML = contatos.map(([n, u]) =>
-    `<li><a href="${u}" target="_blank" rel="noopener">${n}</a></li>`).join("");
-} else {
-  $("#contato").remove();
-  document.querySelector('.menu a[href="#contato"]').remove();
+  $("#contatos").innerHTML = contatos.map(([nome, url, tipo, acao]) => {
+    const externo = !url.startsWith("mailto:");
+    const alvo = externo ? ' target="_blank" rel="noopener noreferrer"' : "";
+    return `<li><a class="contato-card contato-card--${tipo}" href="${url}"${alvo}>
+      <span class="contato-pokebola" aria-hidden="true"></span>
+      <span class="contato-info"><strong>${nome}</strong><span>${acao}</span></span>
+    </a></li>`;
+  }).join("");
+  $("#contatos-vazio").hidden = true;
 }
 $("#total").textContent = MATERIAS.length;
 
