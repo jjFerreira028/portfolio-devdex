@@ -124,8 +124,8 @@ function renderLista() {
   list.innerHTML = "";
   visiveis().forEach((m) => {
     const li = document.createElement("li");
-    li.innerHTML = `<button class="item ${m.id === atual ? "on" : ""}" style="--c:${m.cor}" data-id="${m.id}">
-      <span class="ico">${m.sigla}</span><span class="n">${pad(m.id)}</span><span class="t">${m.nome}</span></button>`;
+    li.innerHTML = `<button class="item ${m.id === atual ? "on" : ""}" style="--c:${m.cor}" data-id="${m.id}" aria-pressed="${m.id === atual}" tabindex="${m.id === atual ? "0" : "-1"}">
+      <span class="n">${pad(m.id)}</span><span class="t">${m.nome}</span></button>`;
     list.appendChild(li);
   });
 }
@@ -141,7 +141,6 @@ function renderDetalhe(m) {
     <div class="creature-stage">
       <div class="creature-platform" tabindex="0" role="button" aria-label="Ouvir o chamado de ${m.criatura.nome}">
         <img class="creature-image" src="${m.criatura.arquivo}" alt="${m.criatura.nome}" width="128" height="128">
-        <span class="creature-fallback" hidden>${m.sigla}</span>
       </div>
       <h3 class="creature-name">${m.criatura.nome}</h3>
       <span class="audio-status" role="status" aria-live="polite"></span>
@@ -174,7 +173,6 @@ detail.addEventListener("error", (e) => {
   const image = e.target;
   if (!(image instanceof HTMLImageElement) || !image.classList.contains("creature-image")) return;
   image.hidden = true;
-  image.nextElementSibling.hidden = false;
 }, true);
 
 async function tocarChamado(criatura, id) {
@@ -239,21 +237,51 @@ function passo(d) {
   selecionar(v[i].id);
 }
 
-list.addEventListener("click", (e) => { const b = e.target.closest("[data-id]"); if (b) selecionar(+b.dataset.id, true); });
+function focarDisciplina(id) {
+  list.querySelector(`[data-id="${id}"]`)?.focus();
+}
+
+list.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-id]");
+  if (!b) return;
+  const id = Number(b.dataset.id);
+  const ativadoPorTeclado = e.detail === 0;
+  selecionar(id, !ativadoPorTeclado);
+  if (ativadoPorTeclado) focarDisciplina(id);
+});
+list.addEventListener("keydown", (e) => {
+  const b = e.target.closest(".item");
+  if (!b) return;
+  const materias = visiveis();
+  const indice = materias.findIndex((m) => m.id === Number(b.dataset.id));
+  if (indice < 0) return;
+
+  let proximo;
+  if (e.key === "ArrowDown") proximo = (indice + 1) % materias.length;
+  else if (e.key === "ArrowUp") proximo = (indice - 1 + materias.length) % materias.length;
+  else if (e.key === "Home") proximo = 0;
+  else if (e.key === "End") proximo = materias.length - 1;
+  else return;
+
+  e.preventDefault();
+  selecionar(materias[proximo].id);
+  focarDisciplina(materias[proximo].id);
+});
 detail.addEventListener("click", (e) => {
   const b = e.target.closest("button"); if (!b) return;
   if (b.dataset.id) { filtro = "all"; document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("on", x.dataset.f === "all")); selecionar(+b.dataset.id); }
 });
 document.querySelectorAll(".tab").forEach((t) => t.addEventListener("click", () => {
-  document.querySelectorAll(".tab").forEach((x) => x.classList.remove("on"));
-  t.classList.add("on"); filtro = t.dataset.f;
+  document.querySelectorAll(".tab").forEach((x) => {
+    x.classList.remove("on");
+    x.setAttribute("aria-pressed", "false");
+  });
+  t.classList.add("on");
+  t.setAttribute("aria-pressed", "true");
+  filtro = t.dataset.f;
   const v = visiveis(); if (!v.some((m) => m.id === atual)) atual = v[0].id;
   selecionar(atual);
 }));
-document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowDown" || e.key === "ArrowRight") passo(1);
-  if (e.key === "ArrowUp" || e.key === "ArrowLeft") passo(-1);
-});
 
 selecionar(atual);
 document.body.classList.add("booting");
@@ -304,13 +332,27 @@ alternarMenu.addEventListener("click", () => {
   alternarMenu.setAttribute("aria-label", aberto ? "Fechar menu de navegação" : "Abrir menu de navegação");
 });
 menu.addEventListener("click", (e) => {
-  if (!e.target.closest("a")) return;
+  const link = e.target.closest("a");
+  if (!link) return;
   menu.classList.remove("open");
   alternarMenu.setAttribute("aria-expanded", "false");
   alternarMenu.setAttribute("aria-label", "Abrir menu de navegação");
+  document.querySelector(link.hash)?.focus({ preventScroll: true });
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape" || !menu.classList.contains("open")) return;
+  menu.classList.remove("open");
+  alternarMenu.setAttribute("aria-expanded", "false");
+  alternarMenu.setAttribute("aria-label", "Abrir menu de navegação");
+  alternarMenu.focus();
 });
 const ativa = new IntersectionObserver((es) => es.forEach((e) => {
-  if (e.isIntersecting) links.forEach((a) => a.classList.toggle("on", a.hash === "#" + e.target.id));
+  if (e.isIntersecting) links.forEach((a) => {
+    const ativo = a.hash === "#" + e.target.id;
+    a.classList.toggle("on", ativo);
+    if (ativo) a.setAttribute("aria-current", "location");
+    else a.removeAttribute("aria-current");
+  });
 }), { rootMargin: "-45% 0px -50% 0px" });
 secoes.forEach((s) => s && ativa.observe(s));
 const barras = new IntersectionObserver((es) => es.forEach((e) => {

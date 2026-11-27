@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<a class="skip-link" href="#sobre">Pular para o conteúdo principal</a>
 <div class="backdrop" id="backdrop" aria-hidden="true"></div>
 <div id="boot" aria-hidden="true">
   <div class="boot-panel boot-panel-top"></div>
@@ -26,7 +27,7 @@
 <audio id="background-music" src="audio/trilha-fundo.mp3" loop preload="auto"></audio>
 
 <main class="shell">
-  <header class="top" id="inicio">
+  <header class="top" id="inicio" tabindex="-1">
     <button class="lens" id="menu-toggle" type="button" aria-label="Abrir menu de navegação" aria-controls="main-menu" aria-expanded="false"></button>
     <span class="led r"></span><span class="led y"></span><span class="led g"></span>
     <div class="music-controls" role="group" aria-label="Controles da música de fundo">
@@ -43,7 +44,7 @@
   </header>
 
   <nav class="menu" id="main-menu" aria-label="Seções do site">
-    <a href="#inicio" class="on">Início</a>
+    <a href="#inicio" class="on" aria-current="location">Início</a>
     <a href="#sobre">Treinador</a>
     <a href="#dex">Disciplinas</a>
     <a href="#ferramentas">Habilidades</a>
@@ -57,7 +58,7 @@
     </div>
   </section>
 
-  <section class="bloco" id="sobre">
+  <section class="bloco" id="sobre" tabindex="-1">
     <h2>Ficha do treinador</h2>
     <p>No curso de Análise e Desenvolvimento de Sistemas da UDF Centro Universitário, cada semestre é uma nova rota de treinamento. Esta ficha reúne as disciplinas da minha jornada e as habilidades que venho desenvolvendo em programação, desenvolvimento web, design, inteligência artificial e dados.</p>
     <dl class="ficha">
@@ -68,25 +69,25 @@
     </dl>
   </section>
 
-  <section class="dex" id="dex" aria-label="DevDex">
+  <section class="dex" id="dex" aria-label="DevDex" tabindex="-1">
     <article class="screen" id="detail" aria-live="polite"></article>
     <aside class="list-wrap">
       <nav class="tabs" aria-label="Filtrar por semestre">
-        <button class="tab on" data-f="all">Todas</button>
-        <button class="tab" data-f="1">1º sem.</button>
-        <button class="tab" data-f="2">2º sem.</button>
+        <button class="tab on" data-f="all" aria-pressed="true">Todas</button>
+        <button class="tab" data-f="1" aria-pressed="false">1º sem.</button>
+        <button class="tab" data-f="2" aria-pressed="false">2º sem.</button>
       </nav>
-      <ul id="list"></ul>
+      <ul id="list" aria-label="Disciplinas. Use as setas para navegar entre itens."></ul>
     </aside>
   </section>
 
-  <section class="bloco" id="ferramentas">
+  <section class="bloco" id="ferramentas" tabindex="-1">
     <h2>Habilidades</h2>
     <p>Nível estimado por mim, em uma escala de 0 a 100. Muda conforme eu pratico.</p>
     <ul class="skills" id="skills"></ul>
   </section>
 
-  <section class="bloco" id="contato">
+  <section class="bloco" id="contato" tabindex="-1">
     <h2>Contato</h2>
     <ul class="contatos" id="contatos"></ul>
   </section>
