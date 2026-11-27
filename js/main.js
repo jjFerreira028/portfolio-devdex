@@ -317,7 +317,10 @@ if (contatos.length) {
   $("#contatos").innerHTML = contatos.map(([nome, url, tipo, acao]) => {
     const externo = !url.startsWith("mailto:");
     const alvo = externo ? ' target="_blank" rel="noopener noreferrer"' : "";
-    return `<li><a class="contato-card contato-card--${tipo}" href="${url}"${alvo}>
+    const treinador = tipo === "email"
+      ? `<div class="contato-treinador"><img src="images/treinador-joao.png" alt="João Victor como treinador"><span>Treinador</span></div>`
+      : "";
+    return `<li class="contato-item contato-item--${tipo}">${treinador}<a class="contato-card contato-card--${tipo}" href="${url}"${alvo}>
       <span class="contato-pokebola" aria-hidden="true"></span>
       <span class="contato-info"><strong>${nome}</strong><span>${acao}</span></span>
     </a></li>`;

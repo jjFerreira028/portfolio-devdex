@@ -181,6 +181,10 @@ section[id],.screen{scroll-margin-top:64px}
 .contatos-vazio[hidden]{display:none}
 #contato h2{text-align:right}
 #contato .contatos-descricao{max-width:62ch;margin:.5rem 0 0 auto;text-align:right}
+.contatos{align-items:start}
+.contato-treinador{display:grid;justify-items:center;gap:.25rem;margin-bottom:.65rem}
+.contato-treinador img{display:block;width:128px;height:128px;object-fit:contain;image-rendering:pixelated}
+.contato-treinador span{font-size:.42rem;color:var(--accent)}
 .skill{background:#0004;border-radius:10px;padding:.8rem}
 .skill>div:first-child{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
 .skill em{font-style:normal;font-size:.5rem;opacity:.8}
